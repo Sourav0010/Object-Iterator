@@ -19,4 +19,20 @@ function makeIterator(value) {
    });
 }
 
-module.exports = makeIterator;
+function makeGenerator(expValue) {
+   Object.defineProperty(expValue, Symbol.iterator, {
+      value: function* () {
+         for (var key of Object.keys(expValue)) {
+            yield expValue[key];
+         }
+      },
+      enumerable: false,
+      configurable: true,
+      writable: true,
+   });
+}
+
+module.exports = {
+   makeIterator,
+   makeGenerator,
+};
