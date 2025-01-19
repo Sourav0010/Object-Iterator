@@ -1,10 +1,10 @@
 # make-iterator
 
-`make-iterator` is a lightweight npm package that enables JavaScript objects to become iterable. This functionality allows you to iterate through an object's values using standard iteration constructs like `for...of` loops.
+`make-iterator` is a lightweight npm package that enables JavaScript objects to become iterable. This functionality allows you to iterate through an object's values using standard iteration constructs like `for...of` loops. The package includes two methods: `makeIterator` and `makeGenerator`.
 
 ## Motivation
 
-JavaScript objects are not inherently iterable, which can limit their utility when working with modern iteration patterns. `make-iterator` solves this problem by providing a simple function that adds an iterable behavior to a given object.
+JavaScript objects are not inherently iterable, which can limit their utility when working with modern iteration patterns. `make-iterator` solves this problem by providing two simple functions that add iterable behavior to a given object.
 
 ## Installation
 
@@ -27,7 +27,7 @@ Here is how you can use `make-iterator`:
 ### Example
 
 ```javascript
-const makeIterator = require('object-iterator-js');
+const { makeIterator, makeGenerator } = require('object-iterator-js');
 
 const myObject = {
    name: 'John',
@@ -35,10 +35,9 @@ const myObject = {
    city: 'New York',
 };
 
-// Make the object iterable
+// Example 1: Using makeIterator
 makeIterator(myObject);
 
-// Use a for...of loop to iterate over the object's values
 for (const value of myObject) {
    console.log(value);
 }
@@ -48,29 +47,31 @@ for (const value of myObject) {
 // 30
 // New York
 
-// Example with spread operator
-const iterableObject = {
+// Example 2: Using makeGenerator
+const anotherObject = {
    a: 1,
    b: 2,
    c: 3,
 };
 
-makeIterator(iterableObject);
+makeGenerator(anotherObject);
 
-// Spread the object's values into an array
-const valuesArray = [...iterableObject];
+for (const value of anotherObject) {
+   console.log(value);
+}
+
+// Output:
+// 1
+// 2
+// 3
+
+// Example with spread operator
+makeGenerator(anotherObject);
+const valuesArray = [...anotherObject];
 console.log(valuesArray);
 
 // Output:
 // [1, 2, 3]
-
-// Combine with other iterables
-const otherArray = [4, 5, 6];
-const combined = [...iterableObject, ...otherArray];
-console.log(combined);
-
-// Output:
-// [1, 2, 3, 4, 5, 6]
 ```
 
 ## API
@@ -89,11 +90,25 @@ console.log(combined);
 
 Once `makeIterator` is applied to an object, you can use iteration constructs like `for...of` to loop through the values of the object.
 
+### `makeGenerator(expValue)`
+
+#### Parameters
+
+-  `expValue` (Object): The object to make iterable.
+
+#### Returns
+
+-  None. The function modifies the input object by adding a generator-based `@@iterator` method (defined as `Symbol.iterator`).
+
+#### Behavior
+
+Once `makeGenerator` is applied to an object, you can use iteration constructs like `for...of` to loop through the values of the object. This method uses a generator to yield each value.
+
 ## Notes
 
--  The function modifies the input object directly by defining a `Symbol.iterator` property.
+-  The functions modify the input object directly by defining a `Symbol.iterator` property.
 -  The iteration order corresponds to the object's keys as returned by `Object.keys()`.
--  Properties added to the object after calling `makeIterator` will not be included in the iteration unless `makeIterator` is called again.
+-  Properties added to the object after calling `makeIterator` or `makeGenerator` will not be included in the iteration unless the functions are called again.
 
 ## Links
 
