@@ -1,0 +1,22 @@
+{
+   "name": "object-iterator-js",
+   "version": "1.0.0",
+   "description": "Make Javascript Objects Iterable",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Sourav0010/Object-Iterator.git"
+   },
+   "keywords": [
+      "Iterator"
+   ],
+   "author": "Sourav Mohanty",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/Sourav0010/Object-Iterator/issues"
+   },
+   "homepage": "https://github.com/Sourav0010/Object-Iterator#readme"
+}
